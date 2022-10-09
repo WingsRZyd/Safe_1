@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Drawing.Printing;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
@@ -15,13 +16,14 @@ namespace Safe_1
         private Panel TableContainer = new Panel();
         public Bitmap OnTexture = Resource1.on,
                       OffTexture = Resource1.off;
-            private Button[] buttons = new Button[10 * 10];
+        private Button[] buttons = new Button[10 * 10];
+        private int countRow = 0;
 
         public Form1()
         {
             InitializeComponent();
 
-            Button[] buttons = new Button[10 * 10];
+            //Button[] buttons = new Button[10 * 10];
 
             // панель дл€ редактора таблицы
             flowLayoutPanel1.SuspendLayout();
@@ -61,6 +63,7 @@ namespace Safe_1
             tableLayoutPanel.Visible = true;
 
             tableLayoutPanel.ColumnCount = Convert.ToInt32(textBox1.Text);
+            countRow = tableLayoutPanel.ColumnCount;
 
             // генератор случайных чисел дл€ раскраски панелей (чтобы было видно)
             var rnd = new Random(DateTime.Now.Millisecond);
@@ -110,10 +113,12 @@ namespace Safe_1
                             if (flag == 1)
                             {
                                 buttons[count].Text = "|";
+                                buttons[count].Tag = count;
                             }
                             else
                             {
                                 buttons[count].Text = "Ч";
+                                buttons[count].Tag = count;
                                 //buttons[count].Text = Convert.ToString(count);
                             }
                             buttons[count].Click += new EventHandler(button_Click);
@@ -133,17 +138,65 @@ namespace Safe_1
             Button button = (Button)sender;
             //buttons[0].EnabledChanged += button_Click;
             //buttons[0].PerformClick();
-            button1_Click(buttons[15], null);
+            //button1_Click(buttons[0], null);
+            //button.Text = Convert.ToString(countRow);
             //button.Text = Convert.ToString((int)button.Tag);
-            if (button.Text == "|")
+            if ((Convert.ToInt32(button.Tag) % countRow) == 0)
             {
-                button.Text = "Ч";
+                for (int i = 0; i < (countRow); i++)
+                {
+                    button1_Click(buttons[Convert.ToInt32(button.Tag) + i], null);
+                }
+                for (int i = 0; i < countRow * countRow; i = i + countRow)
+                {
+                    button1_Click(buttons[i], null);
+                }
             }
-            else if (button.Text == "Ч")
+            else if ((Convert.ToInt32(button.Tag) % countRow) == countRow - 1)
             {
-                button.Text = "|";
+                for (int i = Convert.ToInt32(button.Tag) - countRow + 1; i % countRow < (countRow) - 1; i++)
+                {
+                    button1_Click(buttons[i], null);
+                }
+                for (int i = countRow - 1; i < countRow * countRow; i = i + countRow)
+                {
+                    button1_Click(buttons[i], null);
+                }
+                button1_Click(button, null);
             }
-        }
+            else
+            {
+                for (int i = Convert.ToInt32(button.Tag) - (Convert.ToInt32(button.Tag) % countRow); i % countRow < (countRow) - 1; i++)
+                {
+                    button1_Click(buttons[i], null);
+                }
+                /*for (int i = Convert.ToInt32(button.Tag); i % countRow != 0; i++)
+                {
+                    button1_Click(buttons[i], null);
+                }*/
+                for (int i = Convert.ToInt32(button.Tag) % countRow; i < countRow * countRow; i = i + countRow)
+                {
+                    button1_Click(buttons[i], null);
+                }
+                button1_Click(buttons[((Convert.ToInt32(button.Tag) / countRow) * countRow) + countRow - 1], null);
+            }
+                /*for (int i = Convert.ToInt32(button.Tag); i % countRow != 0; i++)
+                {
+                    button1_Click(buttons[i], null);
+                }
+                for (int i = Convert.ToInt32(button.Tag); i % countRow != 0; i--)
+                {
+                    button1_Click(buttons[i], null);
+                }*/
+                if (button.Text == "|")
+                {
+                    button.Text = "Ч";
+                }
+                else if (button.Text == "Ч")
+                {
+                    button.Text = "|";
+                }
+            }
 
         private void button1_Click(object sender, EventArgs e)
         {
