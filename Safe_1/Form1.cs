@@ -43,6 +43,7 @@ namespace Safe_1
             this.Controls.SetChildIndex(TableContainer, 0);
         }
 
+        //создание таблицы
         private void CreateTable(object sender, EventArgs e)
         {
             label2.Text = "Сейф до сих пор закрыт";
@@ -88,6 +89,8 @@ namespace Safe_1
                             buttons[count] = new Button();
                             buttons[count].Height = 100;
                             buttons[count].Width = 100;
+                            
+                            //случайное положение рычага
                             int flag = 0;
                             flag = rnd.Next(0, 2);
                             if (flag == 1)
@@ -108,7 +111,7 @@ namespace Safe_1
                     }
             TableContainer.Controls.Add(tableLayoutPanel);
         }
-
+        //функционал кнопок (рычагов) в таблице (на сейфе) 
         private void button_Click(object sender, EventArgs e) 
         {
             Button button = (Button)sender;  
@@ -156,6 +159,7 @@ namespace Safe_1
                 button.Text = "|";
             } 
 
+            //проверка на правильнось положения рычагов
             bool flag = true;
             for (int i = 0; i < countRow * countRow; i++)
             {
