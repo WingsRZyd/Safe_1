@@ -37,6 +37,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,6 +46,7 @@
             this.flowLayoutPanel1.Controls.Add(this.label1);
             this.flowLayoutPanel1.Controls.Add(this.textBox1);
             this.flowLayoutPanel1.Controls.Add(this.button1);
+            this.flowLayoutPanel1.Controls.Add(this.label2);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 171);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(939, 476);
@@ -68,12 +70,21 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(629, 3);
+            this.button1.Location = new System.Drawing.Point(324, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(150, 46);
             this.button1.TabIndex = 5;
             this.button1.Text = "Создать";
             this.button1.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(480, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(78, 32);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "label2";
             // 
             // Form1
             // 
@@ -95,5 +106,6 @@
         private Label label1;
         private TextBox textBox1;
         private Button button1;
+        private Label label2;
     }
 }
